@@ -14,3 +14,4 @@ stripe
 git+https://github.com/aaronsnig501/reusable-blog-app.git
 django-debug-toolbar
 djangorestframework
+gunicorn
