@@ -28,6 +28,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 SITE_ID = 2
 
+# I inserted this for contact app
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'henryfitz10@gmail.com'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +60,7 @@ INSTALLED_APPS = [
     'emoticons',
     'polls',
     'rest_framework',
+    'contact',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -163,3 +171,12 @@ STRIPE_SECRET = os.getenv('STRIPE_SECRET', 'sk_test_N35jP51CRqW4FKBMa8MAL1A4')
 SITE_URL = 'http://127.0.0.1:8000'
 PAYPAL_NOTIFY_URL = 'https://291e2d8f.ngrok.io/a-very-hard-to-guess-url/'
 PAYPAL_RECEIVER_EMAIL = 'aaron@codeinstitute.net'
+
+#product images
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+
+
+

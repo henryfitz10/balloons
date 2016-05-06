@@ -24,6 +24,8 @@ from accounts.views import register, profile, login, logout, cancel_subscription
 from threads import views as forum_views
 from polls import api_views
 from django.contrib.staticfiles import views as static_views
+import contact.views
+from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -63,5 +65,11 @@ urlpatterns = [
 
     #static urls
     url(r'^static/(?P<path>.*)$', static_views.serve),
+
+    #contact form urls
+    url(r'^contact/', contact.views.contact, name='contact'),
+
+    #media
+     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 ]
 

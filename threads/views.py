@@ -92,9 +92,9 @@ def new_thread(request, subject_id):
     if request.method == "POST":
         thread_form = ThreadForm(request.POST)
         post_form = PostForm(request.POST)
-        poll_form = PollForm(request.POST) #poll insert
-        poll_subject_formset = poll_subject_formset(request.POST)                   #poll insert
-        if thread_form.is_valid() and post_form.is_valid() and poll_subject_formset.is_valid():   #poll insert
+        poll_form = PollForm(request.POST)  # poll insert
+        poll_subject_formset = poll_subject_formset(request.POST)  # poll insert
+        if thread_form.is_valid() and post_form.is_valid():  # poll insert
             thread = thread_form.save(False)
             thread.subject = subject
             thread.user = request.user
@@ -105,15 +105,15 @@ def new_thread(request, subject_id):
             post.thread = thread
             post.save()
 
-            poll = poll_form.save(False)
-            poll.thread = thread
-            poll.save()
+            if poll_form.is_valid() and poll_subject_formset.is_valid() and request.POST.get('is_a_poll', None):
+                poll = poll_form.save(False)
+                poll.thread = thread
+                poll.save()
 
-            for subject_form in poll_subject_formset:
-                subject = subject_form.save(False)
-                subject.poll = poll
-                subject.save()
-
+                for subject_form in poll_subject_formset:
+                    subject = subject_form.save(False)
+                    subject.poll = poll
+                    subject.save()
 
             messages.success(request, "You have created a new thread!")
 
@@ -142,6 +142,7 @@ def thread(request, thread_id):
     args.update(csrf(request))
     return render(request, 'forum/thread.html', args)
 
+
 def thread_vote(request, thread_id, subject_id):
     thread = Thread.objects.get(id=thread_id)
 
@@ -156,7 +157,3 @@ def thread_vote(request, thread_id, subject_id):
 
     messages.success(request, "We've registered your vote!")
     return redirect(reverse('thread', args={thread_id}))
-
-
-
-
