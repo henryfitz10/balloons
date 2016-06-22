@@ -178,5 +178,3 @@ MEDIA_URL = '/media/'
 
 
 
-
-
