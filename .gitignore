@@ -34,7 +34,7 @@ fabric.properties
 *.pyc
 __pycache__/
 local_settings.py
-media
+
 
 
 ### OSX ###
